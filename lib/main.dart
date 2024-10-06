@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:map_flutter_app/providers/live_location_provider.dart';
-import 'package:map_flutter_app/providers/location_provider.dart';
-import 'package:map_flutter_app/providers/map_provider.dart';
-import 'package:map_flutter_app/screens/location_input%20_screen.dart';
+import 'package:map_flutter_app/core/providers/live_location_provider.dart';
+import 'package:map_flutter_app/core/providers/location_provider.dart';
+import 'package:map_flutter_app/core/providers/map_provider.dart';
+import 'package:map_flutter_app/presentation/screens/location_input%20_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:map_flutter_app/providers/map_provider.dart';
+import 'package:map_flutter_app/core/providers/live_location_provider.dart';
+import 'package:map_flutter_app/core/providers/map_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:map_flutter_app/providers/live_location_provider.dart';
 
 class LiveLocationScreen extends StatelessWidget {
   const LiveLocationScreen({super.key});

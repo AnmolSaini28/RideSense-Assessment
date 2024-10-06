@@ -1,16 +1,37 @@
-# map_flutter_app
+# Map Location App
 
-A new Flutter project.
+This Flutter app allows users to input a location manually or fetch their current live location. The app displays the location on a map and provides additional features like switching between different map types (satellite, terrain, etc.).
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Input location manually (city name, address, or coordinates).
+- Fetch and display live location on the map.
+- Switch between different map types (normal, satellite, terrain).
+- Displays address based on live location.
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshots
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Location Input Screen
+![Location Input Screen](screenshots/location_input_screen/)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Location Input Screen
+![Location Input Screen](screenshots/map_screen/)
+
+### Live Location Screen
+![Live Location Screen](screenshots/live_location_screen/)
+
+## Setup Instructions
+
+### Prerequisites
+
+- Install [Flutter SDK](https://flutter.dev/docs/get-started/install).
+- Install [Android Studio](https://developer.android.com/studio) or [Visual Studio Code](https://code.visualstudio.com/) with the Flutter extension.
+- Install necessary platform tools for running the app on your desired platform (Android/iOS).
+
+### Installation Steps
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/map_location_app.git
+   cd map_location_app

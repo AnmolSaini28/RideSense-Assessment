@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:map_flutter_app/providers/live_location_provider.dart';
 import 'package:map_flutter_app/providers/location_provider.dart';
+import 'package:map_flutter_app/providers/map_provider.dart';
 import 'package:map_flutter_app/screens/location_input%20_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -10,6 +11,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => LocationProvider()),
         ChangeNotifierProvider(create: (_) => LiveLocationProvider()),
+        ChangeNotifierProvider(create: (_) => MapTypeProvider()),
       ],
       child: const MyApp(),
     ),

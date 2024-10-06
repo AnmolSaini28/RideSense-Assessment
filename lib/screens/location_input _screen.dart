@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:map_flutter_app/providers/live_location_provider.dart';
 import 'package:map_flutter_app/providers/location_provider.dart';
+import 'package:map_flutter_app/providers/map_provider.dart';
 import 'package:map_flutter_app/screens/live_location_screen.dart';
 import 'package:map_flutter_app/screens/map_screen.dart';
 import 'package:provider/provider.dart';
@@ -96,10 +97,12 @@ class LocationInputScreen extends StatelessWidget {
       floatingActionButton: Tooltip(
         message: 'Live Location',
         child: FloatingActionButton(
+          heroTag: 'locationInputFAB', // Add a unique heroTag
           onPressed: () async {
-            await livelocationProvider.fetchLiveLocation;
+            await livelocationProvider.fetchLiveLocation();
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => LiveLocationScreen()),
+              MaterialPageRoute(
+                  builder: (context) => const LiveLocationScreen()),
             );
           },
           child: const Icon(Icons.my_location),

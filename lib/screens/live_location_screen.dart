@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:map_flutter_app/providers/map_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:map_flutter_app/providers/live_location_provider.dart';
 
@@ -9,6 +10,8 @@ class LiveLocationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final liveLocationProvider = Provider.of<LiveLocationProvider>(context);
+    final mapTypeProvider =
+        Provider.of<MapTypeProvider>(context); // Access MapTypeProvider
 
     return Scaffold(
       appBar: AppBar(
@@ -23,53 +26,76 @@ class LiveLocationScreen extends StatelessWidget {
         foregroundColor: Colors.white,
         centerTitle: true,
       ),
-      body: liveLocationProvider.isFetching
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : liveLocationProvider.currentLocation != null
-              ? Column(
-                  children: [
-                    Expanded(
-                      child: GoogleMap(
-                        initialCameraPosition: CameraPosition(
-                          target: liveLocationProvider.currentLocation!,
-                          zoom: 14.0,
-                        ),
-                        markers: {
-                          Marker(
-                            markerId: const MarkerId('liveLocation'),
-                            position: liveLocationProvider.currentLocation!,
-                            infoWindow: InfoWindow(
-                              title: 'You are here',
-                              snippet: liveLocationProvider.currentAddress,
-                            ),
-                          ),
-                        },
-                      ),
+      body: liveLocationProvider.currentLocation != null
+          ? Column(
+              children: [
+                Expanded(
+                  child: GoogleMap(
+                    mapType: mapTypeProvider
+                        .currentMapType, // Use MapType from provider
+                    initialCameraPosition: CameraPosition(
+                      target: liveLocationProvider.currentLocation!,
+                      zoom: 14.0,
                     ),
-                    if (liveLocationProvider.currentAddress != null)
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          'Address: ${liveLocationProvider.currentAddress}',
-                          style: const TextStyle(fontSize: 16),
+                    markers: {
+                      Marker(
+                        markerId: const MarkerId('liveLocation'),
+                        position: liveLocationProvider.currentLocation!,
+                        infoWindow: InfoWindow(
+                          title: 'You are here',
+                          snippet: liveLocationProvider.currentAddress,
                         ),
                       ),
-                  ],
-                )
-              : const Center(
-                  child: Text('Click to fetch live Location.'),
+                    },
+                  ),
                 ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
-        onPressed: () {
-          liveLocationProvider
-              .fetchLiveLocation(); // Fetch live location when pressed
-        },
-        child: const Icon(
-          Icons.my_location,
-          color: Colors.white,
+                if (liveLocationProvider.currentAddress != null)
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      'Address: ${liveLocationProvider.currentAddress}',
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+              ],
+            )
+          : const Center(
+              child: Text('Fetching live location...'),
+            ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 30.0),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              FloatingActionButton(
+                heroTag: 'liveLocationFAB', // Add a unique heroTag
+                backgroundColor: Colors.blue,
+                onPressed: () {
+                  liveLocationProvider.fetchLiveLocation();
+                },
+                child: const Icon(
+                  Icons.my_location,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 16),
+              FloatingActionButton(
+                backgroundColor: Colors.blue,
+                onPressed: () {
+                  mapTypeProvider
+                      .toggleMapType(); // Toggle map type when pressed
+                },
+                child: const Icon(
+                  Icons.map,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
+          ),
         ),
       ),
     );

@@ -12,13 +12,17 @@ This Flutter app allows users to input a location manually or fetch their curren
 ## Screenshots
 
 ### Location Input Screen
-![Location Input Screen](screenshots/location_input_screen/)
+![Location Input Screen](screenshots/location_input_screen/1.jpg)
 
 ### Location Input Screen
-![Location Input Screen](screenshots/map_screen/)
+![Location Input Screen](screenshots/map_screen/1.jpg)
+![Location Input Screen](screenshots/map_screen/2.jpg)
+![Location Input Screen](screenshots/map_screen/3.jpg)
 
 ### Live Location Screen
-![Live Location Screen](screenshots/live_location_screen/)
+![Live Location Screen](screenshots/live_location_screen/1.jpg)
+![Live Location Screen](screenshots/live_location_screen/2.jpg)
+![Live Location Screen](screenshots/live_location_screen/3.jpg)
 
 ## Setup Instructions
 
@@ -35,3 +39,10 @@ This Flutter app allows users to input a location manually or fetch their curren
    ```bash
    git clone https://github.com/yourusername/map_location_app.git
    cd map_location_app
+
+2. Install dependencies:
+   flutter pub get
+
+3. Connect a physical device or start an emulator.
+
+4. Run the app: flutter run

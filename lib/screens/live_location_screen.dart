@@ -10,8 +10,7 @@ class LiveLocationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final liveLocationProvider = Provider.of<LiveLocationProvider>(context);
-    final mapTypeProvider =
-        Provider.of<MapTypeProvider>(context); // Access MapTypeProvider
+    final mapTypeProvider = Provider.of<MapTypeProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -31,8 +30,7 @@ class LiveLocationScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: GoogleMap(
-                    mapType: mapTypeProvider
-                        .currentMapType, // Use MapType from provider
+                    mapType: mapTypeProvider.currentMapType,
                     initialCameraPosition: CameraPosition(
                       target: liveLocationProvider.currentLocation!,
                       zoom: 14.0,
@@ -71,7 +69,7 @@ class LiveLocationScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               FloatingActionButton(
-                heroTag: 'liveLocationFAB', // Add a unique heroTag
+                heroTag: 'liveLocationFAB',
                 backgroundColor: Colors.blue,
                 onPressed: () {
                   liveLocationProvider.fetchLiveLocation();
@@ -85,8 +83,7 @@ class LiveLocationScreen extends StatelessWidget {
               FloatingActionButton(
                 backgroundColor: Colors.blue,
                 onPressed: () {
-                  mapTypeProvider
-                      .toggleMapType(); // Toggle map type when pressed
+                  mapTypeProvider.toggleMapType();
                 },
                 child: const Icon(
                   Icons.map,

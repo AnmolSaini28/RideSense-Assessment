@@ -32,8 +32,7 @@ class MapScreen extends StatelessWidget {
                   child: GoogleMap(
                     mapType: mapTypeProvider.currentMapType,
                     initialCameraPosition: CameraPosition(
-                      target: locationProvider
-                          .coordinates!, // Use the fetched coordinates
+                      target: locationProvider.coordinates!,
                       zoom: 10.0,
                     ),
                     markers: {
@@ -66,7 +65,7 @@ class MapScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               FloatingActionButton(
-                heroTag: 'liveLocationFAB', // Add a unique heroTag
+                heroTag: 'liveLocationFAB',
                 backgroundColor: Colors.blue,
                 onPressed: () {
                   locationProvider.coordinates!;
@@ -80,8 +79,7 @@ class MapScreen extends StatelessWidget {
               FloatingActionButton(
                 backgroundColor: Colors.blue,
                 onPressed: () {
-                  mapTypeProvider
-                      .toggleMapType(); // Toggle map type when pressed
+                  mapTypeProvider.toggleMapType();
                 },
                 child: const Icon(
                   Icons.map,

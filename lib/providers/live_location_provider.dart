@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:location/location.dart'
-    as loc; // Alias the location package as loc
+import 'package:location/location.dart' as loc;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 
@@ -10,20 +9,18 @@ class LiveLocationProvider with ChangeNotifier {
   String? _errorMessage;
   bool _isFetching = false;
 
-  loc.Location locationController = loc.Location(); // Use loc.Location
+  loc.Location locationController = loc.Location();
 
   LatLng? get currentLocation => _currentLocation;
   String? get currentAddress => _currentAddress;
   String? get errorMessage => _errorMessage;
   bool get isFetching => _isFetching;
 
-  // Fetch current location quickly using getLocation, followed by continuous updates
   Future<void> fetchLiveLocation() async {
     _isFetching = true;
     notifyListeners();
 
     try {
-      // Check if location services and permissions are enabled
       bool serviceEnabled = await locationController.serviceEnabled();
       if (!serviceEnabled) {
         serviceEnabled = await locationController.requestService();
@@ -47,7 +44,6 @@ class LiveLocationProvider with ChangeNotifier {
         }
       }
 
-      // Get initial location quickly
       loc.LocationData locationData = await locationController.getLocation();
       _currentLocation =
           LatLng(locationData.latitude!, locationData.longitude!);
@@ -56,7 +52,6 @@ class LiveLocationProvider with ChangeNotifier {
       _isFetching = false;
       notifyListeners();
 
-      // Listen for continuous updates in the background
       locationController.onLocationChanged
           .listen((loc.LocationData newLocationData) async {
         _currentLocation =
@@ -71,7 +66,6 @@ class LiveLocationProvider with ChangeNotifier {
     }
   }
 
-  // Reverse geocoding to get the address
   Future<void> _getAddressFromCoordinates(LatLng coordinates) async {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(

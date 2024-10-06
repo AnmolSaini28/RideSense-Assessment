@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:geocoding/geocoding.dart'; // For geocoding functionality
+import 'package:geocoding/geocoding.dart';
 
 class LocationProvider with ChangeNotifier {
   String? _location;
   String? _errorMessage;
-  LatLng? _coordinates; // Store the coordinates
-  String?
-      _formattedAddress; // For reverse geocoded address (if coordinates are input)
+  LatLng? _coordinates;
+  String? _formattedAddress;
 
   String get location => _location ?? '';
   String? get errorMessage => _errorMessage;
-  LatLng? get coordinates => _coordinates; // Expose the coordinates to the UI
-  String? get formattedAddress =>
-      _formattedAddress; // For reverse geocoded address
+  LatLng? get coordinates => _coordinates;
+  String? get formattedAddress => _formattedAddress;
 
-  // Function to set location or coordinates
   void setLocation(String location) async {
     _location = location;
     _errorMessage = null;
 
-    // Check if input is coordinates or an address
     if (_isCoordinateInput(location)) {
-      // If coordinates, parse them and use reverse geocoding
       await _getAddressFromCoordinates(location);
     } else {
-      // Otherwise, treat input as a city name or address and geocode it
       await _getCoordinatesFromLocation(location);
     }
 
@@ -37,7 +31,6 @@ class LocationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // Function to convert location input to LatLng using Geocoding API
   Future<void> _getCoordinatesFromLocation(String location) async {
     try {
       List<Location> locations = await locationFromAddress(location);
@@ -45,8 +38,8 @@ class LocationProvider with ChangeNotifier {
       if (locations.isNotEmpty) {
         Location loc = locations.first;
         _coordinates = LatLng(loc.latitude, loc.longitude);
-        _formattedAddress = location; // Store the input as the address
-        notifyListeners(); // Ensure this is called to update the UI
+        _formattedAddress = location;
+        notifyListeners();
       } else {
         _errorMessage = "No coordinates found for the provided location.";
         notifyListeners();
@@ -57,23 +50,19 @@ class LocationProvider with ChangeNotifier {
     }
   }
 
-  // Function to get address from LatLng using Reverse Geocoding API
   Future<void> _getAddressFromCoordinates(String input) async {
     try {
-      // Split the input coordinates
       final parts = input.split(',');
       final latitude = double.parse(parts[0].trim());
       final longitude = double.parse(parts[1].trim());
 
-      // Use the geocoding package to get the address from the coordinates
       List<Placemark> placemarks =
           await placemarkFromCoordinates(latitude, longitude);
 
       if (placemarks.isNotEmpty) {
         Placemark placemark = placemarks.first;
         _coordinates = LatLng(latitude, longitude);
-        _formattedAddress =
-            "${placemark.locality}, ${placemark.country}"; // Create a readable address
+        _formattedAddress = "${placemark.locality}, ${placemark.country}";
       } else {
         _errorMessage = "No address found for the provided coordinates.";
       }
@@ -82,7 +71,6 @@ class LocationProvider with ChangeNotifier {
     }
   }
 
-  // Helper function to check if the input is coordinates or address
   bool _isCoordinateInput(String input) {
     final coordinatePattern =
         RegExp(r'^\s*-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?\s*$');

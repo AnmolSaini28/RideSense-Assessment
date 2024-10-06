@@ -1,9 +1,8 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:map_flutter_app/providers/live_location_provider.dart';
 import 'package:map_flutter_app/providers/location_provider.dart';
-import 'package:map_flutter_app/providers/map_provider.dart';
 import 'package:map_flutter_app/screens/live_location_screen.dart';
 import 'package:map_flutter_app/screens/map_screen.dart';
 import 'package:provider/provider.dart';
@@ -105,8 +104,8 @@ class LocationInputScreen extends StatelessWidget {
                   builder: (context) => const LiveLocationScreen()),
             );
           },
-          child: const Icon(Icons.my_location),
           backgroundColor: Colors.blue,
+          child: const Icon(Icons.my_location),
         ),
       ),
     );

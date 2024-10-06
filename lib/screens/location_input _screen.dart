@@ -1,7 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:map_flutter_app/providers/live_location_provider.dart';
 import 'package:map_flutter_app/providers/location_provider.dart';
+import 'package:map_flutter_app/screens/live_location_screen.dart';
 import 'package:map_flutter_app/screens/map_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +15,7 @@ class LocationInputScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locationProvider = Provider.of<LocationProvider>(context);
+    final livelocationProvider = Provider.of<LiveLocationProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -50,6 +53,7 @@ class LocationInputScreen extends StatelessWidget {
                 controller: _locationController,
                 decoration: InputDecoration(
                   labelText: 'Location (city name, address, or coordinates)',
+                  labelStyle: const TextStyle(fontSize: 14),
                   errorText: locationProvider.errorMessage,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.0),
@@ -87,6 +91,19 @@ class LocationInputScreen extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+      floatingActionButton: Tooltip(
+        message: 'Live Location',
+        child: FloatingActionButton(
+          onPressed: () async {
+            await livelocationProvider.fetchLiveLocation;
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => LiveLocationScreen()),
+            );
+          },
+          child: const Icon(Icons.my_location),
+          backgroundColor: Colors.blue,
         ),
       ),
     );

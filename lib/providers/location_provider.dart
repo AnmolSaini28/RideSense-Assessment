@@ -40,20 +40,20 @@ class LocationProvider with ChangeNotifier {
   // Function to convert location input to LatLng using Geocoding API
   Future<void> _getCoordinatesFromLocation(String location) async {
     try {
-      // Use the geocoding package to get coordinates from the location input
       List<Location> locations = await locationFromAddress(location);
 
       if (locations.isNotEmpty) {
-        // Extract the first result (usually the most relevant)
         Location loc = locations.first;
         _coordinates = LatLng(loc.latitude, loc.longitude);
         _formattedAddress = location; // Store the input as the address
+        notifyListeners(); // Ensure this is called to update the UI
       } else {
-        // Handle case where no results were found
         _errorMessage = "No coordinates found for the provided location.";
+        notifyListeners();
       }
     } catch (e) {
       _errorMessage = "Error retrieving coordinates: ${e.toString()}";
+      notifyListeners();
     }
   }
 

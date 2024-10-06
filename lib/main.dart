@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:map_flutter_app/providers/live_location_provider.dart';
+import 'package:map_flutter_app/providers/location_provider.dart';
 import 'package:map_flutter_app/screens/location_input%20_screen.dart';
 import 'package:provider/provider.dart';
-import 'providers/location_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LocationProvider()),
+        ChangeNotifierProvider(create: (_) => LiveLocationProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => LocationProvider(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Map App',
-        theme: ThemeData(primarySwatch: Colors.blue),
-        home: LocationInputScreen(),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Map App',
+      home: LocationInputScreen(),
     );
   }
 }

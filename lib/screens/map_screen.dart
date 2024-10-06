@@ -31,7 +31,7 @@ class MapScreen extends StatelessWidget {
                     initialCameraPosition: CameraPosition(
                       target: locationProvider
                           .coordinates!, // Use the fetched coordinates
-                      zoom: 12.0,
+                      zoom: 10.0,
                     ),
                     markers: {
                       Marker(
